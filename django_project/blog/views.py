@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Items
+from .forms import ItemsForm
 
 # Create your views here.
 
@@ -11,3 +13,14 @@ def home(request):
 
 def about(request):
     return render(request, 'blog/about.html')
+
+
+def create_view(request): 
+    context ={} 
+
+    form = ItemsForm(request.POST or None) 
+    if form.is_valid(): 
+        form.save() 
+          
+    context['form']= form 
+    return render(request,'blog/sell.html',context)
