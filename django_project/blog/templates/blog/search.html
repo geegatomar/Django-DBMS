@@ -1,18 +1,19 @@
 {% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-{% for data in dataset %}
+{% if query %}
+{% for result in results %}
 <article class="media content-section ">
   <img class="rounded-circle article-img" src="{{ data.author.profile.image.url }}">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ data.author }}</a>
-        <small class="text-muted">{{ data.date_posted }}</small>
+        <a class="mr-2" href="#">{{ result.author }}</a>
+        <small class="text-muted">{{ result.date_posted }}</small>
       </div>
-      <h2><a class="article-title" href="#">{{ data.item_name }}</a></h2>
-      <p class="article-content">Rs.{{ data.item_price }}</p>
-      <p class="article-content"> {{ data.item_details }}</p>
-      {% if data.author == user %}
+      <h2><a class="article-title" href="#">{{ result.item_name }}</a></h2>
+      <p class="article-content">Rs.{{ result.item_price }}</p>
+      <p class="article-content"> {{ result.item_details }}</p>
+      {% if result.author == user %}
       <div>
         <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="#">Update</a>
         <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="#">Delete</a>
@@ -25,4 +26,7 @@
     </div>
   </article>
   {% endfor %}
+  {% else %}
+  <center><h2>Sorry couldn't find anything for {{ query }} :(</h2></center>
+  {% endif %}
 {% endblock content %}
