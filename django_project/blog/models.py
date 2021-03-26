@@ -14,7 +14,7 @@ class Items(models.Model):
         DRAFTERS = 'DRAFTERS',_('Drafters')
         BOOKS = 'BOOKS',_('Books')
         CYCLES = 'CYCLES',_('Cycles')
-        OTHER = 'OTHER',_('Other')
+        OTHER = 'OTHER',_('Other (Mattress,Mirror,Laundry Baskets/Hangers,etc')
     
     item_name = models.CharField(max_length=100)
     item_type = models.CharField(max_length=10,

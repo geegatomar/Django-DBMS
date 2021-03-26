@@ -1,28 +1,14 @@
 {% extends 'blog/base.html' %}
-{% load crispy_forms_tags %}
+
 {% block content %}
-{% for data in dataset %}
-<article class="media content-section ">
-  <img class="rounded-circle article-img" src="{{ data.author.profile.image.url }}">
+<article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ data.author }}</a>
-        <small class="text-muted">{{ data.date_posted }}</small>
+        <a class="mr-2" href="#">Author name</a>
+        <small class="text-muted">Date posted</small>
       </div>
-      <h2><a class="article-title" href="#">{{ data.item_name }}</a></h2>
-      <p class="article-content">Rs.{{ data.item_price }}</p>
-      <p class="article-content"> {{ data.item_details }}</p>
-      {% if data.author == user %}
-      <div>
-        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="#">Update</a>
-        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="#">Delete</a>
-      </div>
-      {% else %}
-      <div>
-        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="#">Buy</a>
-      </div>
-      {% endif %}
+      <h2><a class="article-title" href="#">Title</a></h2>
+      <p class="article-content">Content</p>
     </div>
   </article>
-  {% endfor %}
 {% endblock content %}
