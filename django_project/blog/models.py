@@ -15,7 +15,6 @@ class Items(models.Model):
         BOOKS = 'BOOKS',_('Books')
         CYCLES = 'CYCLES',_('Cycles')
         OTHER = 'OTHER',_('Other')
-    
     item_name = models.CharField(max_length=100)
     item_type = models.CharField(max_length=10,
                                  choices=ItemType.choices,
@@ -27,3 +26,6 @@ class Items(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self): 
         return self.item_name 
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'pk': self.pk})
