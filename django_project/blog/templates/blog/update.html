@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %} 
+{% load crispy_forms_tags %}
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data"> 
+  
+    <!-- Security token -->
+    {% csrf_token %} 
+    <!-- Using the formset -->
+    {{ form|crispy }} 
+      
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+    </div>
+</form>
+
+{% endblock content %}

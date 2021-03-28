@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% for data in dataset %}
+<article class="media content-section ">
+  <img class="rounded-circle article-img" src="{{ data.author.profile.image.url }}">
+    <div class="media-body">
+        <h2><a class="article-title" href="{% url 'detail' data.id %}">{{ data.username }}</a></h2>
+        <a class="mr-2" href="#">{{ data.email }}</a>
+        <p>Here are the details of the seller. Please contact this user to buy the item. Also this item has been added to your cart.</p>
+        <button class="btn btn-outline-danger" type="submit">Add to Cart</button>
+        <div>
+    </div>
+    </div>
+  </article>
+  {% endfor %}
+{% endblock content %}
