@@ -15,7 +15,7 @@
       {% if data.author == user %}
       <div>
         <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'update' data.id %}">Update</a>
-        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="#">Delete</a>
+        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'delete' data.id %}">Delete</a>
       </div>
       {% else %}
       <div>
