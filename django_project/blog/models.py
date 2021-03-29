@@ -19,11 +19,12 @@ class Items(models.Model):
     item_price = models.FloatField(default=0.00)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, default='rishitha', on_delete=models.CASCADE)
+    status = models.BooleanField(default=1)
     def __str__(self): 
         return self.item_name 
 
 class ItemsCart(models.Model):
-    item_id = models.IntegerField()
+    item_id = models.ForeignKey(Items, on_delete=models.CASCADE)
     buyer_id = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self): 
         return self.item_id

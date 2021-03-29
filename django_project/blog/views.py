@@ -7,11 +7,8 @@ from .models import Items, ItemsCart
 from .forms import ItemsForm
 from django.db.models import Q
 from django.contrib.auth.models import User
-# Create your views here.
-
 
 def home(request):
-    # render takes 2 arguments; the request, and the string of the path of the html file to render
     return render(request, 'home.html')
 
 
@@ -75,18 +72,10 @@ def delete_view(request, id):
 
 def buy(request, id):
     obj = get_object_or_404(Items, id = id)
-    #cart = ItemsCart.objects.all()
     name = Items.objects.all().filter(id=id).values()
-    print(name)
-    r=request.user
-    print(r)
-    cart=ItemsCart(item_id=id, buyer_id=r)
-    #cart.buyer_id=request.user
-    #cart.item_id=Items.objects.raw("Select id from blog_Items where id=",id)
-    #cart.save()
     k=name[0]['author_id']
     context = {}
     context['dataset'] = User.objects.all().filter(id=k).values()
-
+    cart=ItemsCart(item_id=Items.objects.get(id=id), buyer_id=Items.objects.get(id=request.user))
     return render(request, "blog/buy.html", context)
 
