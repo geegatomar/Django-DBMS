@@ -52,17 +52,13 @@
               <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
               <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               <a class="nav-item nav-link" href="{% url 'blog-sell' %}">Sell Item</a>
+              <a class="nav-item nav-link" href="{% url 'cart' user.id %}">Item Cart</a>
+              <a class="nav-item nav-link" href="{% url 'sale' user.id %}">Items Put for Sale</a>
               {% else %}
               <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
               <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
               {% endif %}
-              
-              <!--<button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
-              sagittis lacus vel augue laoreet rutrum faucibus.">
-              
-              
-              Cart(<span id="cart">0</span>)
-              </button>-->
+
             </div>
           </div>
         </div>
@@ -70,7 +66,6 @@
     </header>
     <main role="main" class="container">
 
-    <!-- Container div here now-->
   <div class="row">
     <div class="col-md-8">
  

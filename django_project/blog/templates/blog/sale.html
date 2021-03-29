@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% for data in dataset %}
-{% if data.status == 1 %}
+{% if data.author == user%}
 <article class="media content-section ">
   <img class="rounded-circle article-img" src="{{ data.author.profile.image.url }}">
     <div class="media-body">
@@ -12,19 +12,14 @@
       </div>
       <h2><a class="article-title" href="{% url 'detail' data.id %}">{{ data.item_name }}</a></h2>
       <p class="article-content">Rs.{{ data.item_price }}</p>
-      <!--<p class="article-content"> {{ data.item_details }}</p>-->
-      {% if data.author == user %}
+      <p class="article-content"> {{ data.item_details }}</p>
+      <p class="article-content"> {{ data.status }}</p>
       <div>
         <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'update' data.id %}">Update</a>
         <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'delete' data.id %}">Delete</a>
       </div>
-      {% else %}
-      <div>
-        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'buy' data.id %}">Buy</a>
-      </div>
-      {% endif %}
     </div>
   </article>
   {% endif %}
-  {% endfor %}
+  {% endfor %} 
 {% endblock content %}

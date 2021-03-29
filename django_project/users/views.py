@@ -41,7 +41,3 @@ def profile(request):
 
     return render(request, 'users/profile.html', context)
 
-def list_view(request):
-    context ={}
-    context["dataset"] = Items.objects.raw('Select * from blog_Items')       
-    return render(request, "users/profile.html", context)
