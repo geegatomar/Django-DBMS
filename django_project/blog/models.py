@@ -23,7 +23,7 @@ class Items(models.Model):
         return self.item_name 
 
 class ItemsCart(models.Model):
-    item_id = models.ForeignKey(Items, on_delete=models.CASCADE)
+    item_id = models.IntegerField()
     buyer_id = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self): 
         return self.item_id

@@ -77,16 +77,14 @@ def buy(request, id):
     obj = get_object_or_404(Items, id = id)
     #cart = ItemsCart.objects.all()
     name = Items.objects.all().filter(id=id).values()
+    print(name)
+    r=request.user
+    print(r)
+    cart=ItemsCart(item_id=id, buyer_id=r)
     #cart.buyer_id=request.user
     #cart.item_id=Items.objects.raw("Select id from blog_Items where id=",id)
     #cart.save()
     k=name[0]['author_id']
-    try:
-        obj = ItemsCart.objects.get(id=-1)
-    except ItemsCart.DoesNotExist:
-        obj = ItemsCart(item_id=Items.objects.all().filter(id=id),buyer_id=request.user)
-        obj.save()
-    
     context = {}
     context['dataset'] = User.objects.all().filter(id=k).values()
 
