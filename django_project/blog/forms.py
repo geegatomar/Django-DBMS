@@ -10,6 +10,11 @@ class ItemsForm(forms.ModelForm):
             "item_type",
             "item_details",
             "item_price",
-            "date_posted",
-            "author",
+        ]
+
+class ItemsCartForm(forms.ModelForm):
+
+    class Meta:
+        model = Items
+        fields = [
         ]

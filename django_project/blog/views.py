@@ -2,16 +2,15 @@
 from django.shortcuts import (get_object_or_404,
                               render, 
                               HttpResponseRedirect)
-from django.http import HttpResponse
+from django.http import HttpResponse,  HttpResponseRedirect
+from django.contrib import messages
+from django.urls import reverse
 from .models import Items, ItemsCart
-from .forms import ItemsForm
+from .forms import ItemsForm,ItemsCartForm
 from django.db.models import Q
 from django.contrib.auth.models import User
-# Create your views here.
-
 
 def home(request):
-    # render takes 2 arguments; the request, and the string of the path of the html file to render
     return render(request, 'home.html')
 
 
@@ -24,7 +23,9 @@ def create_view(request):
 
     form = ItemsForm(request.POST or None) 
     if form.is_valid(): 
-        form.save()
+        item = form.save(commit = False)
+        item.author = request.user   
+        item.save()  
           
     context['form']= form 
     return render(request,'blog/sell.html',context)
@@ -75,18 +76,47 @@ def delete_view(request, id):
 
 def buy(request, id):
     obj = get_object_or_404(Items, id = id)
-    #cart = ItemsCart.objects.all()
     name = Items.objects.all().filter(id=id).values()
-    print(name)
-    r=request.user
-    print(r)
-    cart=ItemsCart(item_id=id, buyer_id=r)
-    #cart.buyer_id=request.user
-    #cart.item_id=Items.objects.raw("Select id from blog_Items where id=",id)
-    #cart.save()
     k=name[0]['author_id']
     context = {}
     context['dataset'] = User.objects.all().filter(id=k).values()
-
+    form = ItemsCartForm(request.POST or None) 
+    if form.is_valid(): 
+        cart=ItemsCart.objects.get_or_create(item_id=Items.objects.get(id=id), buyer_id=request.user)
+        update=Items.objects.filter(id=id).update(status=0)
+            
     return render(request, "blog/buy.html", context)
 
+def cart(request, id):
+    context ={}
+    context["dataset"] = ItemsCart.objects.all().filter(buyer_id=id)     
+    return render(request, "blog/cart.html",context)
+
+def sale(request, id):
+    context ={}
+    context["dataset"] = Items.objects.raw('Select * from blog_Items')       
+    return render(request, "blog/sale.html", context)
+
+
+# def contact(request):
+#     from blog.mailer import send_mail
+
+#     if request.method == "POST":
+#         form = ContactUsForm(request.POST)
+#         if form.is_valid():
+#             name = form.cleaned_data['name']
+#             email = form.cleaned_data['email']
+#             query = form.cleaned_data['query']
+#             mail_sent = send_mail(name,email,query)
+#             if mail_sent:
+#                 messages.success(request, 'Your query has been successfully sent')
+#             else:
+#                 messages.error(request, 'Query submission unsuccessful, try again or mail help@plus-robotics.com')
+#         else:
+#             messages.error(request, 'Query Submission Unsuccessful, try again or mail help@plus-robotics.com')
+#         return HttpResponseRedirect(reverse('contact'))
+#     else:
+#         form = ContactUsForm()
+#         context = { 'form' : form }
+
+#     return render(request, 'contact.html', context=context) 

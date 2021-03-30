@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% for data in dataset %}
+<article class="media content-section ">
+  <img class="rounded-circle article-img" src="{{ data.buyer_id.profile.image.url }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ data.buyer_id.username }}</a>
+        <small class="text-muted">{{ data.item_id.date_posted }}</small>
+      </div>
+      <h2><a class="article-title" href="{% url 'detail' data.id %}">{{ data.item_id.item_name }}</a></h2>
+      <p class="article-content">Rs.{{ data.item_id.item_price }}</p>
+      <p class="article-content"> {{ data.item_id.item_details }}</p>
+    </div>
+  </article>
+  {% endfor %}
+{% endblock content %}

@@ -29,7 +29,7 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4">NITK Exclusive OLX System</a>
+          <a class="navbar-brand mr-4" style="color:white">NITK Exclusive OLX System</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -52,17 +52,13 @@
               <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
               <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               <a class="nav-item nav-link" href="{% url 'blog-sell' %}">Sell Item</a>
+              <a class="nav-item nav-link" href="{% url 'cart' user.id %}">Item Cart</a>
+              <a class="nav-item nav-link" href="{% url 'sale' user.id %}">Items Put for Sale</a>
               {% else %}
               <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
               <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
               {% endif %}
-              
-              <!--<button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
-              sagittis lacus vel augue laoreet rutrum faucibus.">
-              
-              
-              Cart(<span id="cart">0</span>)
-              </button>-->
+
             </div>
           </div>
         </div>
@@ -70,7 +66,6 @@
     </header>
     <main role="main" class="container">
 
-    <!-- Container div here now-->
   <div class="row">
     <div class="col-md-8">
  
@@ -88,7 +83,7 @@
         <h3>Searchbar</h3>
         <p class='text-muted'>
           <form method='get' action="{% url 'search' %}" class="form-inline my-2 my-lg-0">
-            <<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
           </form>
         </p>
