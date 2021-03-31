@@ -18,7 +18,7 @@
       </div>
       {% else %}
       <div>
-        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="#">Buy</a>
+        <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'buy' data.id %}">Buy</a>
       </div>
       {% endif %}
     </div>
