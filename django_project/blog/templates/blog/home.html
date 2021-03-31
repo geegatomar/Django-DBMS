@@ -12,7 +12,6 @@
       </div>
       <h2><a class="article-title" href="{% url 'detail' data.id %}">{{ data.item_name }}</a></h2>
       <p class="article-content">Rs.{{ data.item_price }}</p>
-      <!--<p class="article-content"> {{ data.item_details }}</p>-->
       {% if data.author == user %}
       <div>
         <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'update' data.id %}">Update</a>

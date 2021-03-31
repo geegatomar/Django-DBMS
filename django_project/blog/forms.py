@@ -1,5 +1,5 @@
 from django import forms
-from .models import Items
+from .models import Items, ItemsCart
 
 class ItemsForm(forms.ModelForm):
 
@@ -15,6 +15,6 @@ class ItemsForm(forms.ModelForm):
 class ItemsCartForm(forms.ModelForm):
 
     class Meta:
-        model = Items
+        model = ItemsCart
         fields = [
         ]
