@@ -7,11 +7,10 @@ from django.contrib import messages
 from django.urls import reverse
 from .models import Items, ItemsCart
 from .forms import ItemsForm,ItemsCartForm
-from django.db.models import Q
 from django_project.settings import EMAIL_HOST_USER
 from django.contrib.auth.models import User
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail  
 
 def home(request):
     return render(request, 'home.html')
@@ -42,6 +41,7 @@ def search(request):
         query=request.GET.get('search')
         results=Items.objects.all().filter(item_name=query).values()
         #results=Items.objects.all().raw("Select * from blog_Items where item_name='%s'",[query])
+        print(results)
 
     return render(request,"blog/search.html",{'query':query,'results':results})
 
@@ -63,7 +63,6 @@ def update_view(request, id):
 
 
 def delete_view(request, id):
-
     context ={}
     obj = get_object_or_404(Items, id = id) 
     if request.method =="POST":
@@ -79,18 +78,17 @@ def buy(request, id):
     context = {}
     context['dataset'] = User.objects.all().filter(id=k).values()
     con = User.objects.all().filter(id=k).values()
+    print(con)
     c=con[0]['email']
-    print(c)
     
     form = ItemsCartForm(request.POST or None) 
     if form.is_valid(): 
         cart=ItemsCart.objects.get_or_create(item_id=Items.objects.get(id=id), buyer_id=request.user)
         update=Items.objects.filter(id=id).update(status=0)
-        subject = 'welcome to GFG world'
+        subject = 'There is a person interested in buying your item.'
         message = f'Hi {request.user}  wants to buy the item {m} which you put up for sale. If you are not contacted by them here are their details: email: {request.user.email}'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [c]
-        print(recipient_list)
         send_mail( subject, message, email_from, recipient_list )      
         return HttpResponseRedirect("/")      
     return render(request, "blog/buy.html", context)
@@ -106,25 +104,3 @@ def sale(request, id):
     return render(request, "blog/sale.html", context)
 
 
-# def contact(request):
-#     from blog.mailer import send_mail
-
-#     if request.method == "POST":
-#         form = ContactUsForm(request.POST)
-#         if form.is_valid():
-#             name = form.cleaned_data['name']
-#             email = form.cleaned_data['email']
-#             query = form.cleaned_data['query']
-#             mail_sent = send_mail(name,email,query)
-#             if mail_sent:
-#                 messages.success(request, 'Your query has been successfully sent')
-#             else:
-#                 messages.error(request, 'Query submission unsuccessful, try again or mail help@plus-robotics.com')
-#         else:
-#             messages.error(request, 'Query Submission Unsuccessful, try again or mail help@plus-robotics.com')
-#         return HttpResponseRedirect(reverse('contact'))
-#     else:
-#         form = ContactUsForm()
-#         context = { 'form' : form }
-
-#     return render(request, 'contact.html', context=context) 
